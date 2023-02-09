@@ -43,7 +43,7 @@ Secrets can be added on organisation level spanning all repositories in the org 
 In your site repository:
 - Create a file in `.github/workflows/` named ex. `deploy-branchname.yml`.
 - Use the following template.
-```
+```yaml
 name: Build and deploy beta.
 
 on:
