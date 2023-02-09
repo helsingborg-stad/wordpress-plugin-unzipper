@@ -38,7 +38,7 @@ runs:
     - name: The rsync deployment to www-data user.
       uses: burnett01/rsync-deployments@4.1
       with:
-        switches: -avzrog --chown=${{ inputs.deploy-host-web-server-user }}:${{ inputs.deploy-host-web-server-user }}
+        switches: -avzrog --rsync-path="sudo rsync" --chown=${{ inputs.deploy-host-web-server-user }}:${{ inputs.deploy-host-web-server-user }}
         path: .
         remote_path: ${{ inputs.deploy-host-path }}/wp-content/plugins
         remote_host: ${{ inputs.deploy-host }}
