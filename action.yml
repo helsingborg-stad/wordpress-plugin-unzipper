@@ -32,7 +32,7 @@ runs:
         token: ${{ inputs.github-token }}
 
     - name: unzip and remove
-      run: unzip \*.zip && rm *.zip
+      run: unzip \*.zip && rm *.zip && rm -r .git
       shell: bash
 
     - name: The rsync deployment to www-data user.
