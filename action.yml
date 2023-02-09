@@ -43,5 +43,5 @@ runs:
         remote_path: ${{ inputs.deploy-host-path }}/wp-content/plugins
         remote_host: ${{ inputs.deploy-host }}
         remote_user: ${{ inputs.deploy-host-user }}
-        remote_key: ${{ inputs.deploy-host-user }}
+        remote_key: ${{ inputs.deploy-host-user-key }}
         remote_port: 22
