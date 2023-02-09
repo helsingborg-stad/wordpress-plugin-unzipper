@@ -1,0 +1,52 @@
+name: Wordpress plugin unzipper
+description: Unzip plugins from repo and rsync it ino a wordpress plugin folder.
+inputs:
+  deploy-host:
+    description: Deployment host domain or ip.
+    required: true
+  deploy-host-path:
+    description: Deployment path on server.
+    required: true
+  deploy-host-user:
+    description: Username of the rsync deployment.
+    required: true
+  deploy-host-user-key: 
+    description: The ssh key of the user deploying through rsync.
+    required: true
+  deploy-host-web-server-user:
+    description: Host web server user that should own the files.
+    required: true  
+  github-token:
+    description: Github token for npm package retrieval.
+    required: true
+  plugin-repo:
+    description: Repository containing zipped plugins.
+    required: true
+
+runs:
+  using: composite
+  steps:
+
+  paid-plugin:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with: 
+        repository: ${{ inputs.plugin-repo }}
+        token: ${{ inputs.github-token }}
+
+    - name: unzip and remove
+      run: unzip \*.zip && rm *.zip
+      shell: bash
+
+    - name: The rsync deployment to www-data user.
+      uses: burnett01/rsync-deployments@4.1
+      with:
+        switches: -avzrog --chown=${{ inputs.deploy-host-web-server-user }}:${{ inputs.deploy-host-web-server-user }}
+        path: .
+        remote_path: ${{ inputs.deploy-host-path }}/wp-content/plugins
+        remote_host: ${{ inputs.deploy-host }}
+        remote_user: ${{ inputs.deploy-host-user }}
+        remote_key: ${{ inputs.deploy-host-user }}
+        remote_port: 22
