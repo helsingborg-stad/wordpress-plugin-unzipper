@@ -43,8 +43,9 @@ Secrets can be added on organisation level spanning all repositories in the org 
 In your site repository:
 - Create a file in `.github/workflows/` named ex. `deploy-branchname.yml`.
 - Use the following template.
+- Any build/deploy step should prefferably be executed before this action to avoid syncing issues when for example rsync is used with --delete flag.
 ```yaml
-name: Build and deploy beta.
+name: Unzip plugins
 
 on:
   push:
@@ -57,9 +58,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
-    - uses: helsingborg-stad/wordpress-plugin-unzipper/3.0@master
+  unzip:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: helsingborg-stad/wordpress-plugin-unzipper@master
       with:
         deploy-host: ${{ secrets.DEPLOY_REMOTE_HOST_PROD }}
         deploy-host-path: ${{ secrets.DEPLOY_REMOTE_PATH_DOMAIN_SE }}
