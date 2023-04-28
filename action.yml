@@ -4,6 +4,10 @@ inputs:
   deploy-host:
     description: Deployment host domain or ip.
     required: true
+  deploy-port:
+    description: Deployment host ssh port.
+    default: 22
+    required: false
   deploy-host-path:
     description: Deployment path on server.
     required: true
@@ -44,4 +48,4 @@ runs:
         remote_host: ${{ inputs.deploy-host }}
         remote_user: ${{ inputs.deploy-host-user }}
         remote_key: ${{ inputs.deploy-host-user-key }}
-        remote_port: 22
+        remote_port: ${{ inputs.deploy-port }}
