@@ -27,6 +27,7 @@ This action will unzip zip files containing plugins and rsync them all into a wo
 |-----------------------------|------------------------------------------------------------------------------|----------|
 | deploy-host                 | Host domain or ip                                                            | true     |
 | deploy-host-path            | Host deployment absolute path to wordpress root folder                       | true     |
+| deploy-host-path            | Host deploy port                                                             | true     |
 | deploy-host-user            | Host deploy ssh user name                                                    | true     |
 | deploy-host-user-key        | Host deploy ssh user key                                                     | true     |
 | deploy-host-web-server-user | Host web server user                                                         | true     |
@@ -67,7 +68,8 @@ jobs:
     steps:
     - uses: helsingborg-stad/wordpress-plugin-unzipper@master
       with:
-        deploy-host: ${{ secrets.DEPLOY_REMOTE_HOST_PROD }}
+        deploy-host: ${{ secrets.DEPLOY_REMOTE_HOST_DOMAIN_SE }}
+        deploy-port: ${{ secrets.DEPLOY_REMOTE_PORT_DOMAIN_SE }}
         deploy-host-path: ${{ secrets.DEPLOY_REMOTE_PATH_DOMAIN_SE }}
         deploy-host-user: ${{ secrets.DEPLOY_REMOTE_USER }}
         deploy-host-user-key: ${{ secrets.DEPLOY_KEY }}
