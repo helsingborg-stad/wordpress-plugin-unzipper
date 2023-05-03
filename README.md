@@ -27,7 +27,7 @@ This action will unzip zip files containing plugins and rsync them all into a wo
 |-----------------------------|------------------------------------------------------------------------------|----------|
 | deploy-host                 | Host domain or ip                                                            | true     |
 | deploy-host-path            | Host deployment absolute path to wordpress root folder                       | true     |
-| deploy-host-path            | Host deploy port                                                             | true     |
+| deploy-port            | Host deploy port                                                             | true     |
 | deploy-host-user            | Host deploy ssh user name                                                    | true     |
 | deploy-host-user-key        | Host deploy ssh user key                                                     | true     |
 | deploy-host-web-server-user | Host web server user                                                         | true     |
